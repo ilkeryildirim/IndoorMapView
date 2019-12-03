@@ -43,6 +43,10 @@ public class MapView extends View {
 
     private float mRestrictSize = 200f;
 
+    //latest touch coordinates
+    public float touchX;
+    public float touchY;
+
     // local parameters
     private float mScale = 1;
     private long mFloorId;
@@ -577,13 +581,17 @@ public class MapView extends View {
         return viewCoordinate;
     }
 
+
     public float[] transformToMapCoordinate(float[] viewCoordinate) {
         float[] mapCoordinate = {viewCoordinate[0], viewCoordinate[1]};
         Matrix invertMatrix = new Matrix();
         mMapMatrix.invert(invertMatrix);
         invertMatrix.mapPoints(mapCoordinate);
+        touchX=viewCoordinate[0];
+        touchY=viewCoordinate[1];
         return mapCoordinate;
     }
+
 
     public void centerMyLocation() {
         centerSpecificLocation(mMyLocationSymbol.getLocation());
